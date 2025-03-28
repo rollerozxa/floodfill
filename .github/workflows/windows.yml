@@ -1,0 +1,35 @@
+name: Windows
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  windows:
+    name: "${{ matrix.bits }}-bit"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        bits: [32, 64, arm64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build
+
+      - name: Download toolchain
+        run: |
+          curl -L "https://github.com/mstorsjo/llvm-mingw/releases/download/20250114/llvm-mingw-20250114-ucrt-ubuntu-20.04-x86_64.tar.xz" | sudo tar xJvf - -C "/usr" --strip-components=1
+
+      - name: Build Tensy
+        run: |
+          ./packaging/build.sh win ${{ matrix.bits }}
+
+      - name: Upload output
+        uses: ./.github/actions/upload-output
+        with:
+          file: packaging/bin/win${{ matrix.bits }}/tensy.exe
+          name: tensy-win${{ matrix.bits }}.exe
+          repo_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,29 @@
+name: PSVita
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  psvita:
+    name: PSVita
+    runs-on: ubuntu-latest
+    container:
+      image: vitasdk/vitasdk:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          apk add samurai
+
+      - name: Build Tensy
+        run: |
+          ./packaging/build.sh vita
+
+      - name: Upload output
+        uses: ./.github/actions/upload-output
+        with:
+          file: packaging/bin/vita/tensy.vpk
+          name: tensy-vita.vpk
+          repo_token: ${{ secrets.GITHUB_TOKEN }}

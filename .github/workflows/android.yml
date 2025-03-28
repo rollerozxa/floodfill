@@ -1,0 +1,38 @@
+name: Android
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up OpenJDK
+        uses: actions/setup-java@v4
+        with:
+            distribution: 'temurin'
+            java-version: '17'
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake ninja-build
+
+      - name: Download vendored deps
+        run: |
+          ./packaging/dl-deps.sh
+
+      - name: Build Tensy
+        run: |
+          cd android
+          gradle assemblerelease
+
+      - name: Upload output
+        uses: ./.github/actions/upload-output
+        with:
+          file: android/app/build/outputs/apk/release/app-release-unsigned.apk
+          name: tensy-android-unsigned.apk
+          repo_token: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,44 @@
+name: Linux
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  linux:
+    name: AppImage (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-latest
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+    container:
+      image: debian:bullseye
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          apt-get install -y build-essential git make pkg-config cmake ninja-build libasound2-dev libpulse-dev libjack-dev libsndio-dev libx11-dev libxext-dev libxrandr-dev libxcursor-dev libxfixes-dev libxi-dev libxss-dev libxkbcommon-dev libdrm-dev libgbm-dev libgl1-mesa-dev libgles2-mesa-dev libegl1-mesa-dev libdbus-1-dev libibus-1.0-dev libudev-dev fcitx-libs-dev ca-certificates wget zip file xxd --no-install-recommends
+
+      - name: Build Tensy
+        run: |
+          ./packaging/build.sh linux ${{ matrix.arch }}
+
+      - name: Upload output
+        uses: ./.github/actions/upload-output
+        with:
+          file: packaging/bin/lin_${{ matrix.arch }}/tensy
+          name: tensy-linux-${{ matrix.arch }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload output
+        uses: ./.github/actions/upload-output
+        with:
+          file: packaging/bin/Tensy-${{ matrix.arch }}.AppImage
+          name: tensy-${{ matrix.arch }}.AppImage
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
