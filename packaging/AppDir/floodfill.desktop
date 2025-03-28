@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Flood Fill
+GenericName=Flood fill-style puzzle game
+Exec=floodfill
+Type=Application
+StartupNotify=true
+Icon=floodfill
+StartupWMClass=floodfill
+Categories=Game;

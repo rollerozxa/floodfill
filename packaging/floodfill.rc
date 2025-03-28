@@ -8,7 +8,7 @@
 #define PRODUCT_VER_STRING "0.0.0"
 
 1 ICON "icon.ico"
-1 24 "tensy.manifest"
+1 24 "floodfill.manifest"
 
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION    VER_MAJOR,VER_MINOR,VER_PATCH,0
@@ -24,12 +24,12 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "CompanyName",      "ROllerozxa"
-            VALUE "FileDescription",  "Tensy"
+            VALUE "FileDescription",  "Flood Fill"
             VALUE "FileVersion",      VER_STRING
-            VALUE "InternalName",     "tensy"
+            VALUE "InternalName",     "floodfill"
             VALUE "LegalCopyright",   "Copyright (c) 2024 ROllerozxa"
-            VALUE "OriginalFilename", "tensy.exe"
-            VALUE "ProductName",      "Tensy"
+            VALUE "OriginalFilename", "floodfill.exe"
+            VALUE "ProductName",      "Flood Fill"
             VALUE "ProductVersion",   PRODUCT_VER_STRING
         END
     END

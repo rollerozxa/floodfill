@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(tensy C)
+project(floodfill C)
 set(CMAKE_C_STANDARD 99)
 
 if (NOT CMAKE_BUILD_TYPE)
@@ -38,7 +38,7 @@ if(NOT VITA)
 endif()
 
 if(WIN32)
-	set(SRCS ${SRCS} packaging/tensy.rc)
+	set(SRCS ${SRCS} packaging/floodfill.rc)
 	set(CMAKE_EXE_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} -mwindows")
 endif()
 
@@ -59,19 +59,19 @@ if(VITA)
 	vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME})
 	vita_create_vpk(${PROJECT_NAME}.vpk OZXA00010 ${PROJECT_NAME}.self
 		VERSION "00.00"
-		NAME Tensy
+		NAME Flood Fill
 		FILE packaging/vita/icon.png sce_sys/icon0.png
 		FILE packaging/vita/bg.png sce_sys/livearea/contents/bg.png
 		FILE packaging/vita/startup.png sce_sys/livearea/contents/startup.png
 		FILE packaging/vita/template.xml sce_sys/livearea/contents/template.xml
 	)
-	install(FILES "${CMAKE_BINARY_DIR}/tensy.vpk" DESTINATION .)
+	install(FILES "${CMAKE_BINARY_DIR}/floodfill.vpk" DESTINATION .)
 endif()
 
 if(APPLE)
 	set(BUNDLE_PATH "${PROJECT_NAME}.app/Contents")
 
-	install(FILES "packaging/tensy.icns" DESTINATION "${BUNDLE_PATH}/Resources")
+	install(FILES "packaging/floodfill.icns" DESTINATION "${BUNDLE_PATH}/Resources")
 	install(FILES "packaging/Info.plist" DESTINATION "${BUNDLE_PATH}")
 	install(FILES "packaging/PkgInfo" DESTINATION "${BUNDLE_PATH}")
 	install(TARGETS ${PROJECT_NAME} DESTINATION "${BUNDLE_PATH}/MacOS")

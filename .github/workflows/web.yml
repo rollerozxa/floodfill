@@ -24,29 +24,29 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ninja-build xxd zip
 
-      - name: Build Tensy
+      - name: Build Flood Fill
         run: |
           ./packaging/build.sh web
-          cd packaging/bin/web && zip -r ../tensy-web.zip -- *
+          cd packaging/bin/web && zip -r ../floodfill-web.zip -- *
 
       - name: Upload output
         uses: ./.github/actions/upload-output
         with:
-          file: packaging/bin/tensy-web.zip
-          name: tensy-web.zip
+          file: packaging/bin/floodfill-web.zip
+          name: floodfill-web.zip
           repo_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup GitHub Pages
-        if: github.repository == 'rollerozxa/tensy'
+        if: github.repository == 'rollerozxa/floodfill'
         uses: actions/configure-pages@v5
 
       - name: Upload Pages artifact
-        if: github.repository == 'rollerozxa/tensy'
+        if: github.repository == 'rollerozxa/floodfill'
         uses: actions/upload-pages-artifact@v3
         with:
           path: packaging/bin/web/
 
       - name: Deploy to Pages
-        if: github.repository == 'rollerozxa/tensy'
+        if: github.repository == 'rollerozxa/floodfill'
         id: deployment
         uses: actions/deploy-pages@v4

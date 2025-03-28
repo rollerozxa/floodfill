@@ -8,7 +8,7 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Launch",
-			"program": "${workspaceFolder}/build/tensy",
+			"program": "${workspaceFolder}/build/floodfill",
 			"args": [],
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "build",

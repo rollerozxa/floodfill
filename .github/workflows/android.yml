@@ -25,7 +25,7 @@ jobs:
         run: |
           ./packaging/dl-deps.sh
 
-      - name: Build Tensy
+      - name: Build Flood Fill
         run: |
           cd android
           gradle assemblerelease
@@ -34,5 +34,5 @@ jobs:
         uses: ./.github/actions/upload-output
         with:
           file: android/app/build/outputs/apk/release/app-release-unsigned.apk
-          name: tensy-android-unsigned.apk
+          name: floodfill-android-unsigned.apk
           repo_token: ${{ secrets.GITHUB_TOKEN }}

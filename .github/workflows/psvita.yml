@@ -17,13 +17,13 @@ jobs:
         run: |
           apk add samurai
 
-      - name: Build Tensy
+      - name: Build Flood Fill
         run: |
           ./packaging/build.sh vita
 
       - name: Upload output
         uses: ./.github/actions/upload-output
         with:
-          file: packaging/bin/vita/tensy.vpk
-          name: tensy-vita.vpk
+          file: packaging/bin/vita/floodfill.vpk
+          name: floodfill-vita.vpk
           repo_token: ${{ secrets.GITHUB_TOKEN }}

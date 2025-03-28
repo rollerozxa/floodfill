@@ -18,7 +18,7 @@ jobs:
           apt-get update
           apt-get install -y cmake ninja-build ca-certificates wget xxd --no-install-recommends
 
-      - name: Build Tensy
+      - name: Build Flood Fill
         run: |
           ./packaging/build.sh haiku
         env:
@@ -28,6 +28,6 @@ jobs:
       - name: Upload output
         uses: ./.github/actions/upload-output
         with:
-          file: packaging/bin/haiku/tensy
-          name: tensy-haiku
+          file: packaging/bin/haiku/floodfill
+          name: floodfill-haiku
           repo_token: ${{ secrets.GITHUB_TOKEN }}

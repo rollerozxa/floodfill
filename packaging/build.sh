@@ -63,7 +63,7 @@ elif [ $TARGET == 'win' ]; then
 	)
 fi
 
-BUILDDIR="/tmp/tensy/${FOLDER}"
+BUILDDIR="/tmp/floodfill/${FOLDER}"
 BINDIR="${SRCDIR}/packaging/bin/${FOLDER}"
 
 mkdir -p "$BUILDDIR"
@@ -85,7 +85,7 @@ DESTDIR="$BINDIR" ninja install
 
 if [ $TARGET == 'linux' ]; then
 	cd "${SRCDIR}/packaging"
-	cp "$BINDIR/tensy" AppDir/AppRun
+	cp "$BINDIR/floodfill" AppDir/AppRun
 
 	/tmp/appimagetool --appimage-extract-and-run AppDir/
 	mv *.AppImage bin/

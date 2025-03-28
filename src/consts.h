@@ -9,6 +9,11 @@
 #define SCREEN_HEIGHT   NATIVE_HEIGHT*2
 
 
+// Shared constant for app name
+#define APP_NAME "Flood Fill - Bedrock Edition"
+// Shared constant for app ID
+#define APP_ID "se.voxelmanip.floodfill"
+
 // Misc helper macros
 
 #define RECTCPY(rect) {rect.x, rect.y, rect.w, rect.h}
