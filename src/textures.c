@@ -2,6 +2,8 @@
 
 #include <data/background_stripes.h>
 #include <data/check.h>
+#include <data/cute.h>
+#include <data/icon.h>
 
 #include <SDL_QOI/SDL_QOI.h>
 
@@ -15,6 +17,8 @@ static bool textures_loaded = false;
 void textures_init(SDL_Renderer *renderer) {
 	LOAD_TEX(TEX_BG_STRIPES, background_stripes_qoi, background_stripes_qoi_len);
 	LOAD_TEX(TEX_CHECK, check_qoi, check_qoi_len);
+	LOAD_TEX(TEX_CUTE, cute_qoi, cute_qoi_len);
+	LOAD_TEX(TEX_ICON, icon_qoi, icon_qoi_len);
 
 	textures_loaded = true;
 }

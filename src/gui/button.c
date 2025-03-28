@@ -12,7 +12,7 @@ bool button_event(const SDL_Event *ev, Button *button) {
 			button->_held = true;
 		} else if (ev->type == SDL_EVENT_MOUSE_BUTTON_UP && button->_held) {
 			button->_held = false;
-			sound_play(SND_CLICK);
+			//sound_play(SND_CLICK);
 			return true;
 		}
 	}

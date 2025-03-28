@@ -1,40 +1,90 @@
 #include "mainmenu.h"
+#include "colours.h"
 #include "consts.h"
 #include "font.h"
-#include "gui/button.h"
+#include "mouse.h"
+#include "music.h"
 #include "render.h"
 #include "scene.h"
+#include "sound.h"
 #include "textures.h"
 
 #include <math.h>
 #include <stdio.h>
 
-#define BOARD_W 30
-#define BOARD_H 16
+typedef struct {
+	const char *label;
+	void (*click)(void);
+} Selector;
 
-static Button play_button, settings_button;
+void play_click(void) { switch_scene("game"); }
+
+void exit_click(void) { switch_scene("exiting"); }
+
+static Selector buttons[] = {
+	{"Play Game", play_click},
+	{"Statistics"},
+	{"Settings"},
+	{"About"},
+	{"Exit", exit_click}
+};
+static size_t button_count = sizeof(buttons) / sizeof(buttons[0]);
+static size_t button_selected = 0;
+static float select_cooldown = 0;
 
 void mainmenu_init(void) {
-	BUTTON(play_button, RECT(245,200,150,40), "Play");
-	BUTTON(settings_button, RECT(245,260,150,40), "Settings");
+	music_play(MUS_MAINMENU, -1);
 }
 
 void mainmenu_event(const SDL_Event *ev) {
-	if (button_event(ev, &play_button))
-		switch_scene("gameconfig");
+	if (ev->type == SDL_EVENT_KEY_DOWN) {
+		if (ev->key.scancode == SDL_SCANCODE_UP) {
+			if (button_selected != 0) {
+				button_selected--;
+				sound_play(SND_SELECT);
+			}
+		}
 
-	if (button_event(ev, &settings_button))
-		switch_scene("settings");
+		if (ev->key.scancode == SDL_SCANCODE_DOWN) {
+			if (button_selected != button_count-1) {
+				button_selected++;
+				sound_play(SND_SELECT);
+			}
+		}
+	}
 
-	if (ev->type == SDL_EVENT_KEY_UP && ev->key.key == SDLK_AC_BACK)
-		switch_scene("exiting");
+	if (ev->type == SDL_EVENT_KEY_UP) {
+		if (ev->key.scancode == SDL_SCANCODE_RETURN) {
+			buttons[button_selected].click();
+		}
+	}
+
+	for (size_t i = 0; i < button_count; i++) {
+		int x = 250;
+		int y = 100 + ((i+1) * 32);
+
+		if (ev->type == SDL_EVENT_MOUSE_MOTION) {
+			if (SDL_PointInRectFloat(&POINT(ev->motion.x, ev->motion.y), &RECT(x,y,96,24))) {
+
+				if (button_selected != i) {
+					button_selected = i;
+					sound_play(SND_SELECT);
+				}
+			}
+		}
+
+		if (ev->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+			if (SDL_PointInRectFloat(&POINT(ev->motion.x, ev->motion.y), &RECT(x,y,96,24))) {
+				buttons[button_selected].click();
+			}
+		}
+	}
 }
 
 void mainmenu_update(void) {
 
 }
 
-static char title[] = "Tensy";
 static double bgpan = 0;
 
 void mainmenu_draw(SDL_Renderer *renderer) {
@@ -49,14 +99,31 @@ void mainmenu_draw(SDL_Renderer *renderer) {
 
 	set_font_color((SDL_Color){0xFF, 0xFF, 0xFF});
 
-	for (size_t i = 0; title[i] != '\0'; i++) {
-		const float y = 20+sin(SDL_GetTicks()/400.0+i)*16;
+	draw_text_shadow(renderer, "Flood Fill", 140+40, 20, 6);
 
-		draw_char_shadow(renderer, title[i], 190+i*GLYPH_WIDTH*8, y, 8);
+	SDL_RenderTexture(renderer, textures_get(TEX_ICON), NULL, &RECT(80,12,96,96));
+
+	for (size_t i = 0; i < button_count; i++) {
+		int x = 250;
+		int y = 100 + ((i+1) * 32);
+		set_font_color((SDL_Color){200,200,200});
+		if (button_selected == i) {
+			SDL_FPoint mouse;
+			int clicked = mouse_get_state_scaled(renderer, &mouse.x, &mouse.y);
+
+			if (clicked == 1 && SDL_PointInRectFloat(&mouse, &RECT(x,y,96,24)))
+				set_font_color((SDL_Color){130,130,130});
+			else
+				set_font_color((SDL_Color){255,255,255});
+
+			draw_text_shadow(renderer, ">", x, y, 2);
+		}
+
+		draw_text_shadow(renderer, buttons[i].label, x+20, y, 2);
 	}
 
-	button(renderer, &play_button);
-	button(renderer, &settings_button);
+	set_font_color((SDL_Color){255,255,255});
+	draw_text_shadow(renderer, "Flood Fill ver. 1.0-dev (Linux)", 0, NATIVE_HEIGHT-12, 1);
 }
 
 Scene mainmenu_scene = {
