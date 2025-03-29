@@ -1,5 +1,12 @@
 #include "render.h"
 #include "consts.h"
+#include "textures.h"
+
+unsigned int sdl_color_to_bitpack(SDL_Color color) {
+	return (color.r << 16)
+		 + (color.g << 8)
+		 + color.b;
+}
 
 void set_draw_color(SDL_Renderer *renderer, unsigned int color) {
 	SDL_SetRenderDrawColor(renderer,
@@ -47,4 +54,39 @@ void draw_box_active(SDL_Renderer *renderer, SDL_FRect *rect) {
 
 	set_draw_color(renderer, 0x747474);
 	SDL_RenderFillRect(renderer, &RECT(rect->x+2, rect->y+2, rect->w-4, rect->h-4));
+}
+
+void draw_cell(SDL_Renderer *renderer, SDL_FPoint pos, unsigned int colour, float cellsize, bool claimed) {
+	float outline_width = cellsize / 24;
+
+	set_draw_color(renderer, colour);
+
+	SDL_FRect rect = {pos.x, pos.y, cellsize, cellsize};
+
+	SDL_RenderFillRect(renderer, &rect);
+
+	if (claimed)
+		SDL_RenderTexture(renderer, textures_get(TEX_CUTE), NULL, &rect);
+
+	// White outline on top and left edge
+	set_draw_color(renderer, 0xFFFFFF);
+	rect.w = outline_width;
+	rect.h = cellsize;
+	SDL_RenderFillRect(renderer, &rect);
+	rect.w = cellsize;
+	rect.h = outline_width;
+	SDL_RenderFillRect(renderer, &rect);
+
+	// Black outline on bottom and right edge
+	set_draw_color(renderer, 0);
+	SDL_RenderFillRect(renderer, &RECT(
+		pos.x + cellsize - outline_width,
+		pos.y + outline_width,
+		outline_width,
+		cellsize - outline_width));
+	SDL_RenderFillRect(renderer, &RECT(
+		pos.x + outline_width,
+		pos.y + cellsize - outline_width,
+		cellsize - outline_width,
+		outline_width));
 }

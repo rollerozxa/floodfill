@@ -4,8 +4,8 @@
 #include <stdbool.h>
 
 typedef struct {
-	int number;
-	bool removed;
+	int colour;
+	bool claimed;
 } Cell;
 
 typedef struct {
@@ -15,6 +15,7 @@ typedef struct {
 	float scale;
 	float cell_size;
 	SDL_FRect rect;
+	int claimed_cells;
 } Board;
 
 extern Board board;
@@ -25,7 +26,6 @@ void board_change_height(int h);
 void board_change_scale(float scale);
 
 void board_reset(void);
-void board_zerofill(void);
 
 void board_draw(SDL_Renderer *renderer, bool coloured_numbers);
 
