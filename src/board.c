@@ -66,7 +66,10 @@ void board_reset(void) {
 		}
 	}
 	allocated_columns = board.w;
-	board.claimed_cells = 0;
+	board.p[0][0].claimed = true;
+	board.current_colour = board.p[0][0].colour;
+	board.claimed_cells = 1;
+	board_spread_colour(board.p[0][0].colour);
 }
 
 SDL_Point board_to_screen_coord(int x, int y) {
@@ -78,4 +81,38 @@ SDL_Point board_to_screen_coord(int x, int y) {
 	point.y += y * board.cell_size;
 
 	return point;
+}
+
+SDL_Point neighbours[] = {
+	{-1,  0},
+	{ 0, -1},
+	{ 1,  0},
+	{ 0,  1}
+};
+
+void _spread_from(int x, int y, int colour) {
+	for (size_t i = 0; i < 4; i++) {
+		SDL_Point n = { x + neighbours[i].x, y + neighbours[i].y };
+
+		if (n.x >= 0 && n.y >= 0 && n.x < board.w && n.y < board.h
+				&& board.p[n.x][n.y].colour == colour
+				&& !board.p[n.x][n.y].claimed) {
+			board.claimed_cells++;
+			board.p[n.x][n.y].claimed = true;
+			_spread_from(n.x, n.y, colour);
+		}
+	}
+}
+
+void board_spread_colour(int colour) {
+	board.current_colour = colour;
+
+	for (int x = 0; x < board.w; x++) {
+		for (int y = 0; y < board.h; y++) {
+			if (board.p[x][y].claimed) {
+				board.p[x][y].colour = colour;
+				_spread_from(x, y, colour);
+			}
+		}
+	}
 }

@@ -52,9 +52,21 @@ void game_init(void) {
 }
 
 void game_event(const SDL_Event *ev) {
-
 	if (ev->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+		for (int x = 0; x < board.w; x++) {
+			for (int y = 0; y < board.h; y++) {
+				SDL_Point point = board_to_screen_coord(x, y);
 
+				SDL_FRect rect = {point.x, point.y, board.cell_size, board.cell_size};
+
+				if (SDL_PointInRectFloat(&POINT(ev->motion.x, ev->motion.y), &rect)) {
+					if (board.p[x][y].colour != board.current_colour) {
+						board_spread_colour(board.p[x][y].colour);
+						sound_play(SND_SPREAD);
+					}
+				}
+			}
+		}
 	}
 }
 
@@ -102,7 +114,7 @@ void game_draw(SDL_Renderer *renderer) {
 			cell_colour.b *= cmult;
 
 			SDL_Point point = board_to_screen_coord(x, y);
-			draw_cell(renderer, POINT(point.x, point.y), sdl_color_to_bitpack(cell_colour), 24, board.p[x][y].claimed);
+			draw_cell(renderer, POINT(point.x, point.y), sdl_color_to_bitpack(cell_colour), board.cell_size, board.p[x][y].claimed);
 		}
 	}
 

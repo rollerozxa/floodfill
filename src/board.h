@@ -16,6 +16,7 @@ typedef struct {
 	float cell_size;
 	SDL_FRect rect;
 	int claimed_cells;
+	int current_colour;
 } Board;
 
 extern Board board;
@@ -30,3 +31,5 @@ void board_reset(void);
 void board_draw(SDL_Renderer *renderer, bool coloured_numbers);
 
 SDL_Point board_to_screen_coord(int x, int y);
+
+void board_spread_colour(int colour);
