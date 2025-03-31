@@ -123,7 +123,9 @@ void mainmenu_draw(SDL_Renderer *renderer) {
 	}
 
 	set_font_color((SDL_Color){255,255,255});
-	draw_text_shadow(renderer, "Flood Fill ver. 1.0-dev (Linux)", 0, NATIVE_HEIGHT-12, 1);
+	char statusmsg[512];
+	snprintf(statusmsg, 511, "Flood Fill ver. 1.0-dev (%s)", SDL_GetPlatform());
+	draw_text_shadow(renderer, statusmsg, 0, NATIVE_HEIGHT-12, 1);
 }
 
 Scene mainmenu_scene = {
