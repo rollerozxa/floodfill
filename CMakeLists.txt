@@ -57,9 +57,9 @@ target_link_libraries(${PROJECT_NAME}
 if(VITA)
 	include("${VITASDK}/share/vita.cmake" REQUIRED)
 	vita_create_self(${PROJECT_NAME}.self ${PROJECT_NAME})
-	vita_create_vpk(${PROJECT_NAME}.vpk OZXA00010 ${PROJECT_NAME}.self
+	vita_create_vpk(${PROJECT_NAME}.vpk OZXA00011 ${PROJECT_NAME}.self
 		VERSION "00.00"
-		NAME Flood Fill
+		NAME "Flood Fill"
 		FILE packaging/vita/icon.png sce_sys/icon0.png
 		FILE packaging/vita/bg.png sce_sys/livearea/contents/bg.png
 		FILE packaging/vita/startup.png sce_sys/livearea/contents/startup.png
