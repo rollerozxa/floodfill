@@ -17,7 +17,11 @@ typedef struct {
 	void (*click)(void);
 } Selector;
 
-void play_click(void) { switch_scene("game"); }
+void play_click(void) {
+	music_fade_out(2500);
+	sound_play(SND_START);
+	switch_scene("game");
+}
 
 void about_click(void) {
 	switch_scene("about");

@@ -23,3 +23,7 @@ void music_play(int music_id, int loops) {
 
 	Mix_PlayMusic(music_bank[music_id], loops);
 }
+
+void music_fade_out(int ms) {
+	Mix_FadeOutMusic(2500);
+}
