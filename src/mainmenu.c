@@ -19,13 +19,21 @@ typedef struct {
 
 void play_click(void) { switch_scene("game"); }
 
-void exit_click(void) { switch_scene("exiting"); }
+void about_click(void) {
+	switch_scene("about");
+}
+
+void exit_click(void) {
+	switch_scene("exiting");
+}
+
+void dummy_function() {}
 
 static Selector buttons[] = {
 	{"Play Game", play_click},
-	{"Statistics"},
-	{"Settings"},
-	{"About"},
+	{"Statistics", dummy_function},
+	{"Settings", dummy_function},
+	{"About", about_click},
 	{"Exit", exit_click}
 };
 static size_t button_count = sizeof(buttons) / sizeof(buttons[0]);
