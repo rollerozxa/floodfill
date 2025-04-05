@@ -20,7 +20,7 @@ typedef struct {
 void play_click(void) {
 	music_fade_out(2500);
 	sound_play(SND_START);
-	switch_scene("game");
+	switch_scene("selectmode");
 }
 
 void about_click(void) {

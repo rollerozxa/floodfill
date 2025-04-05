@@ -6,6 +6,7 @@
 #include "overlay.h"
 #include "pause.h"
 #include "scene.h"
+#include "selectmode.h"
 #include "settings.h"
 
 void register_scenes(void) {
@@ -13,6 +14,7 @@ void register_scenes(void) {
 	add_scene(mainmenu_scene);
 	add_scene(about_scene);
 	add_scene(game_scene);
+	add_scene(selectmode_scene);
 	add_scene(settings_scene);
 	add_scene(exiting_scene);
 
