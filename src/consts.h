@@ -10,7 +10,7 @@
 
 
 // Shared constant for app name
-#define APP_NAME "Flood Fill - Bedrock Edition"
+#define APP_NAME "Flood Fill"
 // Shared constant for app ID
 #define APP_ID "se.voxelmanip.floodfill"
 
