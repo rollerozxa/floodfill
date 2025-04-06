@@ -2,15 +2,28 @@
 #include "colours.h"
 #include "consts.h"
 #include "font.h"
+#include "gui/button.h"
 #include "render.h"
 
-const char *lines[] = {
+static const char *lines[] = {
 	"==================================================",
 	"Flood Fill is a puzzle game where your goal is to",
 	"fill the game board with a single colour by",
 	"changing the colour of the board."
 };
-const size_t line_len = sizeof(lines) / sizeof(lines[0]);
+static const size_t line_len = sizeof(lines) / sizeof(lines[0]);
+
+static Button back_button;
+
+void about_init() {
+	BUTTON(back_button, RECT(400, 220, 150, 40), "Back");
+}
+
+void about_event(const SDL_Event *ev) {
+	if (button_event(ev, &back_button)) {
+		switch_scene("mainmenu");
+	}
+}
 
 void about_draw(SDL_Renderer *renderer) {
 	draw_text_shadow(renderer, "About Flood Fill", 20, 15, 4);
@@ -24,12 +37,14 @@ void about_draw(SDL_Renderer *renderer) {
 			draw_cell(renderer, POINT(x*32, NATIVE_HEIGHT-(32*(y+1))), num_to_colour(2), 32, true);
 		}
 	}
+
+	button(renderer, &back_button);
 }
 
 Scene about_scene = {
 	"about",
-	NULL,
-	NULL,
+	about_init,
+	about_event,
 	NULL,
 	about_draw,
 	0x1F3F8F
