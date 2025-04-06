@@ -4,6 +4,7 @@
 #include <data/check.h>
 #include <data/cute.h>
 #include <data/icon.h>
+#include <data/pause.h>
 
 #include <SDL_QOI/SDL_QOI.h>
 
@@ -19,6 +20,7 @@ void textures_init(SDL_Renderer *renderer) {
 	LOAD_TEX(TEX_CHECK, check_qoi, check_qoi_len);
 	LOAD_TEX(TEX_CUTE, cute_qoi, cute_qoi_len);
 	LOAD_TEX(TEX_ICON, icon_qoi, icon_qoi_len);
+	LOAD_TEX(TEX_PAUSE, pause_qoi, pause_qoi_len);
 
 	textures_loaded = true;
 }

@@ -23,25 +23,9 @@ static int held_sum = -1;
 
 static int score = 0;
 
-static Button pause_button;
-
-static int calculate_sum(void) {
-	int sum = 0;
-
-	return sum;
-}
-
-static void board_physics(void) {
-
-}
-
-static void do_move(void) {
-
-}
+static SDL_FRect pause_button_rect = {NATIVE_WIDTH-24, 0, 24, 24};
 
 void game_init(void) {
-	BUTTON(pause_button, RECT(NATIVE_WIDTH-100,0,100,25), "Pause");
-
 	helddown = false;
 
 	first_held_pos = (SDL_Point){-1,-1};
@@ -52,7 +36,11 @@ void game_init(void) {
 }
 
 void game_event(const SDL_Event *ev) {
+	if (has_overlay()) return;
+
 	if (ev->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+		SDL_FPoint mpos = {ev->motion.x, ev->motion.y};
+
 		for (int x = 0; x < board.w; x++) {
 			for (int y = 0; y < board.h; y++) {
 				SDL_Point point = board_to_screen_coord(x, y);
@@ -66,6 +54,11 @@ void game_event(const SDL_Event *ev) {
 					}
 				}
 			}
+		}
+
+		if (SDL_PointInRectFloat(&mpos, &pause_button_rect)) {
+			sound_play(SND_CLICK);
+			switch_overlay("pause");
 		}
 	}
 }
@@ -121,6 +114,19 @@ void game_draw(SDL_Renderer *renderer) {
 	char statusmsg[512];
 	snprintf(statusmsg, 511, "Cells claimed: %d/%d", board.claimed_cells, board.w*board.h);
 	draw_text_shadow(renderer, statusmsg, 24, 2, 2);
+
+	SDL_FPoint mouse;
+	int pressed = mouse_get_state_scaled(renderer, &mouse.x, &mouse.y);
+
+	if (SDL_PointInRectFloat(&mouse, &pause_button_rect)) {
+		if (pressed)
+			SDL_SetTextureColorMod(textures_get(TEX_PAUSE), 0x88, 0x88, 0x88);
+		else
+		SDL_SetTextureColorMod(textures_get(TEX_PAUSE), 0xBB, 0xBB, 0xBB);
+	} else
+		SDL_SetTextureColorMod(textures_get(TEX_PAUSE), 0xFF, 0xFF, 0xFF);
+
+	SDL_RenderTexture(renderer, textures_get(TEX_PAUSE), NULL, &pause_button_rect);
 }
 
 Scene game_scene = {

@@ -1,5 +1,6 @@
 #include "sound.h"
 
+#include <data/click.h>
 #include <data/select.h>
 #include <data/spread.h>
 #include <data/start.h>
@@ -15,6 +16,7 @@ static bool sound_loaded = false;
 void sound_init(void) {
 	Mix_OpenAudio(0, &(SDL_AudioSpec){SDL_AUDIO_S16, 2, 44100});
 
+	LOAD_SOUND(SND_CLICK, click_ogg);
 	LOAD_SOUND(SND_SELECT, select_ogg);
 	LOAD_SOUND(SND_SPREAD, spread_ogg);
 	LOAD_SOUND(SND_START, start_ogg);

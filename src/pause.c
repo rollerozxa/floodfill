@@ -35,7 +35,7 @@ void pause_draw(SDL_Renderer *renderer) {
 	pausebg_rect.x = (NATIVE_WIDTH - pausebg_rect.w) / 2;
 	pausebg_rect.y = (NATIVE_HEIGHT - pausebg_rect.h) / 2;
 
-	set_draw_color(renderer, 0x102a63);
+	set_draw_color(renderer, 0x123E11);
 	SDL_RenderFillRect(renderer, &pausebg_rect);
 
 	SDL_FRect text_rect = {pausebg_rect.x, pausebg_rect.y, pausebg_rect.w, 20*2};
