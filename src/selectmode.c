@@ -120,7 +120,6 @@ void selectmode_event(const SDL_Event *ev) {
 			if (xvel < 0.05 && selected_mode != -1) {
 				sound_play(SND_START);
 				modes[selected_mode].click();
-				return;
 			}
 			motion = 0;
 			holdingdown = false;

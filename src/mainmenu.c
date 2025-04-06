@@ -24,10 +24,12 @@ void play_click(void) {
 }
 
 void about_click(void) {
+	sound_play(SND_START);
 	switch_scene("about");
 }
 
 void exit_click(void) {
+	music_fade_out(500);
 	switch_scene("exiting");
 }
 
@@ -45,7 +47,8 @@ static size_t button_selected = 0;
 static float select_cooldown = 0;
 
 void mainmenu_init(void) {
-	music_play(MUS_MAINMENU, -1);
+	if (!music_is_playing())
+		music_play(MUS_MAINMENU, -1);
 }
 
 void mainmenu_event(const SDL_Event *ev) {

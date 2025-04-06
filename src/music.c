@@ -27,3 +27,7 @@ void music_play(int music_id, int loops) {
 void music_fade_out(int ms) {
 	Mix_FadeOutMusic(2500);
 }
+
+bool music_is_playing() {
+	return Mix_PlayingMusic();
+}
