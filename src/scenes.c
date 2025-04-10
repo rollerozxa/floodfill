@@ -8,6 +8,7 @@
 #include "scene.h"
 #include "selectmode.h"
 #include "settings.h"
+#include "success.h"
 
 void register_scenes(void) {
 	// First scene needs to be first
@@ -19,4 +20,5 @@ void register_scenes(void) {
 	add_scene(exiting_scene);
 
 	add_overlay(pause_overlay);
+	add_overlay(success_overlay);
 }

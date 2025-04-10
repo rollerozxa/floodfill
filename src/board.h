@@ -17,6 +17,7 @@ typedef struct {
 	SDL_FRect rect;
 	int claimed_cells;
 	int current_colour;
+	int moves;
 } Board;
 
 extern Board board;

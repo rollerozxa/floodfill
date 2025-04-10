@@ -69,6 +69,7 @@ void board_reset(void) {
 	board.p[0][0].claimed = true;
 	board.current_colour = board.p[0][0].colour;
 	board.claimed_cells = 1;
+	board.moves = 0;
 	board_spread_colour(board.p[0][0].colour);
 }
 

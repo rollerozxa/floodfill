@@ -51,6 +51,7 @@ void game_event(const SDL_Event *ev) {
 					if (board.p[x][y].colour != board.current_colour) {
 						board_spread_colour(board.p[x][y].colour);
 						sound_play(SND_SPREAD);
+						board.moves++;
 					}
 				}
 			}
@@ -64,7 +65,11 @@ void game_event(const SDL_Event *ev) {
 }
 
 void game_update(void) {
+	if (has_overlay() || scene_is_transitioning()) return;
 
+	if (board.claimed_cells == board.w * board.h) {
+		switch_overlay("success");
+	}
 }
 
 void game_draw(SDL_Renderer *renderer) {
