@@ -3,6 +3,7 @@
 #include "consts.h"
 #include "colours.h"
 #include "font.h"
+#include "gui/tex_button.h"
 #include "mouse.h"
 #include "overlay.h"
 #include "render.h"
@@ -20,9 +21,11 @@ static int held_sum = -1;
 
 static int score = 0;
 
-static SDL_FRect pause_button_rect = {NATIVE_WIDTH-24, 0, 24, 24};
+static TexButton pause_button;
 
 void game_init(void) {
+	TEX_BUTTON(pause_button, RECT(NATIVE_WIDTH-24, 0, 24, 24), TEX_PAUSE);
+
 	helddown = false;
 
 	first_held_pos = (SDL_Point){-1,-1};
@@ -53,11 +56,10 @@ void game_event(const SDL_Event *ev) {
 				}
 			}
 		}
+	}
 
-		if (SDL_PointInRectFloat(&mpos, &pause_button_rect)) {
-			sound_play(SND_CLICK);
-			switch_overlay("pause");
-		}
+	if (tex_button_event(ev, &pause_button)) {
+		switch_overlay("pause");
 	}
 }
 
@@ -117,18 +119,7 @@ void game_draw(SDL_Renderer *renderer) {
 	snprintf(statusmsg, 511, "Cells claimed: %d/%d", board.claimed_cells, board.w*board.h);
 	draw_text_shadow(renderer, statusmsg, 24, 2, 2);
 
-	SDL_FPoint mouse;
-	int pressed = mouse_get_state_scaled(renderer, &mouse.x, &mouse.y);
-
-	if (SDL_PointInRectFloat(&mouse, &pause_button_rect)) {
-		if (pressed)
-			SDL_SetTextureColorMod(textures_get(TEX_PAUSE), 0x88, 0x88, 0x88);
-		else
-		SDL_SetTextureColorMod(textures_get(TEX_PAUSE), 0xBB, 0xBB, 0xBB);
-	} else
-		SDL_SetTextureColorMod(textures_get(TEX_PAUSE), 0xFF, 0xFF, 0xFF);
-
-	SDL_RenderTexture(renderer, textures_get(TEX_PAUSE), NULL, &pause_button_rect);
+	tex_button(renderer, &pause_button);
 }
 
 Scene game_scene = {
