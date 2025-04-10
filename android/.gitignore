@@ -11,3 +11,7 @@ local.properties
 
 # SDL glue code is copied by SDL buildscript
 app/src/main/java/org/libsdl/app/
+
+# Build output
+*.apk
+*.apk.idsig
