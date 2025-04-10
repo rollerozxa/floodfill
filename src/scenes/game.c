@@ -1,15 +1,15 @@
 #include "game.h"
 #include "board.h"
-#include "consts.h"
 #include "colours.h"
+#include "consts.h"
 #include "font.h"
 #include "gui/tex_button.h"
+#include "media/sound.h"
+#include "media/textures.h"
 #include "mouse.h"
 #include "overlay.h"
 #include "render.h"
 #include "scene.h"
-#include "sound.h"
-#include "textures.h"
 
 #include <stdio.h>
 #include <stdlib.h>

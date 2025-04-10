@@ -4,7 +4,6 @@
 #include "gui/button.h"
 #include "gui/checkbox.h"
 #include "font.h"
-#include "render.h"
 #include "scene.h"
 
 // Settings storage

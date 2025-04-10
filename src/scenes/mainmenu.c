@@ -1,11 +1,11 @@
 #include "mainmenu.h"
 #include "consts.h"
 #include "font.h"
+#include "media/music.h"
+#include "media/sound.h"
+#include "media/textures.h"
 #include "mouse.h"
-#include "music.h"
 #include "scene.h"
-#include "sound.h"
-#include "textures.h"
 
 #include <math.h>
 #include <stdio.h>

@@ -3,7 +3,7 @@
 #include "font.h"
 #include "mouse.h"
 #include "render.h"
-#include "sound.h"
+#include "media/sound.h"
 
 typedef struct {
 	const char *title;

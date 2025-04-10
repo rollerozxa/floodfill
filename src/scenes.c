@@ -1,14 +1,13 @@
 #include "scenes.h"
-#include "about.h"
-#include "exiting.h"
-#include "game.h"
-#include "mainmenu.h"
-#include "overlay.h"
-#include "pause.h"
+#include "overlays/pause.h"
+#include "overlays/success.h"
 #include "scene.h"
-#include "selectmode.h"
-#include "settings.h"
-#include "success.h"
+#include "scenes/about.h"
+#include "scenes/exiting.h"
+#include "scenes/game.h"
+#include "scenes/mainmenu.h"
+#include "scenes/selectmode.h"
+#include "scenes/settings.h"
 
 void register_scenes(void) {
 	// First scene needs to be first

@@ -1,6 +1,6 @@
 #include "render.h"
 #include "consts.h"
-#include "textures.h"
+#include "media/textures.h"
 
 unsigned int sdl_color_to_bitpack(SDL_Color color) {
 	return (color.r << 16)

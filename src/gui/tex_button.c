@@ -1,11 +1,8 @@
 #include "tex_button.h"
-#include "colours.h"
 #include "consts.h"
-#include "font.h"
+#include "media/sound.h"
+#include "media/textures.h"
 #include "mouse.h"
-#include "render.h"
-#include "sound.h"
-#include "textures.h"
 
 bool tex_button_event(const SDL_Event *ev, TexButton *button) {
 	if (SDL_PointInRectFloat(&POINT(ev->motion.x, ev->motion.y), &button->rect)) {
