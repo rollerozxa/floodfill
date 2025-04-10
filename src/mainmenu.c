@@ -73,21 +73,17 @@ void mainmenu_event(const SDL_Event *ev) {
 	}
 
 	for (size_t i = 0; i < button_count; i++) {
-		int x = 250;
-		int y = 100 + ((i+1) * 32);
+		SDL_FRect rect = {
+			250, 100 + ((i + 1) * 32),
+			150, 24};
 
-		if (ev->type == SDL_EVENT_MOUSE_MOTION) {
-			if (SDL_PointInRectFloat(&POINT(ev->motion.x, ev->motion.y), &RECT(x,y,96,24))) {
-
+		if (SDL_PointInRectFloat(&POINT(ev->motion.x, ev->motion.y), &rect)) {
+			if (ev->type == SDL_EVENT_MOUSE_MOTION) {
 				if (button_selected != i) {
 					button_selected = i;
 					sound_play(SND_SELECT);
 				}
-			}
-		}
-
-		if (ev->type == SDL_EVENT_MOUSE_BUTTON_UP) {
-			if (SDL_PointInRectFloat(&POINT(ev->motion.x, ev->motion.y), &RECT(x,y,96,24))) {
+			} else if (ev->type == SDL_EVENT_MOUSE_BUTTON_UP) {
 				buttons[button_selected].click();
 			}
 		}
@@ -124,7 +120,7 @@ void mainmenu_draw(SDL_Renderer *renderer) {
 			SDL_FPoint mouse;
 			int clicked = mouse_get_state_scaled(renderer, &mouse.x, &mouse.y);
 
-			if (clicked == 1 && SDL_PointInRectFloat(&mouse, &RECT(x,y,96,24)))
+			if (clicked == 1 && SDL_PointInRectFloat(&mouse, &RECT(x,y,150,24)))
 				set_font_color((SDL_Color){130,130,130});
 			else
 				set_font_color((SDL_Color){255,255,255});
