@@ -14,12 +14,12 @@ typedef struct {
 	void (*click)(void);
 } Mode;
 
-void classic_click(void) {
+static void classic_click(void) {
 	switch_scene("game");
 }
 static void dummy_function() {}
 
-Mode modes[] = {
+static Mode modes[] = {
 	{
 		"Classic",
 		{
@@ -89,22 +89,19 @@ Mode modes[] = {
 		dummy_function
 	},
 };
-size_t mode_count = sizeof(modes) / sizeof(modes[0]);
+static size_t mode_count = sizeof(modes) / sizeof(modes[0]);
 
-int selected_mode = -1;
-
-float xoff, xvel = 0;
+static int selected_mode = -1;
+static float xoff, xvel, motion = 0;
+static bool holdingdown = false;
 
 float lerp(float a, float b, float t) {
 	return a * (1-t) + b * t;
 }
 
 void selectmode_init(void) {
-
+	selected_mode = -1;
 }
-
-bool holdingdown = false;
-float motion = 0;
 
 void selectmode_event(const SDL_Event *ev) {
 	switch (ev->type) {
