@@ -3,18 +3,15 @@
 #include "consts.h"
 #include "colours.h"
 #include "font.h"
-#include "gui/button.h"
 #include "mouse.h"
 #include "overlay.h"
 #include "render.h"
-#include "settings.h"
 #include "scene.h"
 #include "sound.h"
 #include "textures.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 
 static bool helddown = false;
 static SDL_Point first_held_pos = {-1,-1};

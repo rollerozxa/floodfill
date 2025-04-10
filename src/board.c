@@ -1,8 +1,5 @@
 #include "board.h"
-#include "colours.h"
 #include "consts.h"
-#include "font.h"
-#include "scene.h"
 #include <stdlib.h>
 #include <string.h>
 
