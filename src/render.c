@@ -90,3 +90,23 @@ void draw_cell(SDL_Renderer *renderer, SDL_FPoint pos, unsigned int colour, floa
 		cellsize - outline_width,
 		outline_width));
 }
+
+void draw_translucent_overlay(SDL_Renderer *renderer) {
+	set_draw_color_alpha(renderer, 0x000000d0);
+	SDL_RenderFillRect(renderer, &RECT(0,0,NATIVE_WIDTH,NATIVE_HEIGHT));
+}
+
+SDL_FRect draw_centered_fill_rect(SDL_Renderer *renderer, SDL_FPoint dimensions) {
+	SDL_FRect rect = {
+		0, 0,
+		20 * 10,
+		20 * 12,
+	};
+	rect.x = (NATIVE_WIDTH - rect.w) / 2;
+	rect.y = (NATIVE_HEIGHT - rect.h) / 2;
+
+	set_draw_color(renderer, 0x123E11);
+	SDL_RenderFillRect(renderer, &rect);
+
+	return rect;
+}

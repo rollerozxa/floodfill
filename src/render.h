@@ -12,3 +12,6 @@ void draw_box_hover(SDL_Renderer *renderer, SDL_FRect *rect);
 void draw_box_active(SDL_Renderer *renderer, SDL_FRect *rect);
 
 void draw_cell(SDL_Renderer *renderer, SDL_FPoint pos, unsigned int colour, float cellsize, bool claimed);
+
+void draw_translucent_overlay(SDL_Renderer *renderer);
+SDL_FRect draw_centered_fill_rect(SDL_Renderer *renderer, SDL_FPoint dimensions);
