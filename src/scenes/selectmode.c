@@ -15,7 +15,7 @@ typedef struct {
 } Mode;
 
 static void classic_click(void) {
-	switch_scene("game");
+	switch_scene("select_board_size");
 }
 static void dummy_function() {}
 

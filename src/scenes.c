@@ -6,6 +6,7 @@
 #include "scenes/exiting.h"
 #include "scenes/game.h"
 #include "scenes/mainmenu.h"
+#include "scenes/select_board_size.h"
 #include "scenes/selectmode.h"
 #include "scenes/settings.h"
 
@@ -14,6 +15,7 @@ void register_scenes(void) {
 	add_scene(mainmenu_scene);
 	add_scene(about_scene);
 	add_scene(game_scene);
+	add_scene(select_board_size_scene);
 	add_scene(selectmode_scene);
 	add_scene(settings_scene);
 	add_scene(exiting_scene);
